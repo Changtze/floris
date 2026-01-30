@@ -17,7 +17,7 @@ from floris.uncertain_floris_model import (
 )
 
 
-TEST_DATA = Path(__file__).resolve().parent / "data"
+TEST_DATA = Path(__file__).resolve().parent / "misc_data"
 YAML_INPUT = TEST_DATA / "input_full.yaml"
 
 
@@ -282,13 +282,13 @@ def test_AEP_with_wind_data():
         ti_table=0.06,
     )
 
-    # Set wind_data on UncertainFlorisModel directly
+    # Set wind_roses on UncertainFlorisModel directly
     ufmodel = UncertainFlorisModel(configuration=YAML_INPUT)
     ufmodel.set(wind_data=wind_rose)
     ufmodel.run()
     aep_1 = ufmodel.get_farm_AEP()
 
-    # Set wind_data on FlorisModel and then set on UncertainFlorisModel
+    # Set wind_roses on FlorisModel and then set on UncertainFlorisModel
     fmodel = FlorisModel(configuration=YAML_INPUT)
     fmodel.set(wind_data=wind_rose)
     ufmodel = UncertainFlorisModel(fmodel)

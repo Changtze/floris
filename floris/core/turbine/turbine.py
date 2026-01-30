@@ -137,7 +137,7 @@ def power(
             turbine.
         turbine_type_map: (NDArrayObject[wd, ws, turbines]): The Turbine type definition for
             each turbine.
-        turbine_power_thrust_tables: Reference data for the power and thrust representation
+        turbine_power_thrust_tables: Reference misc_data for the power and thrust representation
         ix_filter (NDArrayInt, optional): The boolean array, or
             integer indices to filter out before calculation. Defaults to None.
         average_method (str, optional): The method for averaging over turbine rotor points
@@ -462,7 +462,7 @@ class Turbine(BaseClass):
                     "power": List[float],
                     "thrust": List[float],
                 }
-            or, contain a key "power_thrust_data_file" pointing to the power/thrust data.
+            or, contain a key "power_thrust_data_file" pointing to the power/thrust misc_data.
             Optionally, power_thrust_table may include parameters for use in the turbine submodel,
             for example:
                 cosine_loss_exponent_yaw (float): The cosine exponent relating the yaw misalignment
@@ -543,14 +543,14 @@ class Turbine(BaseClass):
             }
             bypass_numeric_converter = True
 
-        # Raise warning if "demo" in the cp_ct data file name
+        # Raise warning if "demo" in the cp_ct misc_data file name
         if (
             self.operation_model in ["controller-dependent"]
             and "demo" in self.power_thrust_table["controller_dependent_turbine_parameters"]
                                                  ["cp_ct_data_file"]
         ):
             self.logger.warning(
-                "Cp/Ct data provided with FLORIS is for demonstration purposes only,"
+                "Cp/Ct misc_data provided with FLORIS is for demonstration purposes only,"
                 " and may not accurately reflect the actual Cp/Ct surfaces of reference wind"
                 " turbines."
             )
@@ -591,10 +591,10 @@ class Turbine(BaseClass):
         power_thrust_table_ref = copy.deepcopy(self.power_thrust_table)
         self.power_thrust_data_file = power_thrust_table_ref.pop("power_thrust_data_file")
 
-        # Solidify the data file path and name
+        # Solidify the misc_data file path and name
         self.power_thrust_data_file = self.turbine_library_path / self.power_thrust_data_file
 
-        # Read in the multi-dimensional data supplied by the user.
+        # Read in the multi-dimensional misc_data supplied by the user.
         df = pd.read_csv(self.power_thrust_data_file)
 
         # Down-select the DataFrame to have just the ws, Cp, and Ct values
@@ -602,11 +602,11 @@ class Turbine(BaseClass):
         self.condition_keys = index_col.tolist()
         df2 = df.set_index(index_col.tolist())
 
-        # Loop over the multi-dimensional keys to get the correct ws/Cp/Ct data to make
+        # Loop over the multi-dimensional keys to get the correct ws/Cp/Ct misc_data to make
         # the thrust_coefficient and power interpolants.
         power_thrust_table_ = {} # Reset
         for key in df2.index.unique():
-            # Select the correct ws/Cp/Ct data
+            # Select the correct ws/Cp/Ct misc_data
             data = df2.loc[key]
             if type(key) is not tuple:
                 key = (key,)

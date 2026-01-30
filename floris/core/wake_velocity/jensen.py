@@ -46,10 +46,10 @@ class JensenVelocityDeficit(BaseModel):
         flow_field: FlowField,
     ) -> Dict[str, Any]:
         """
-        This function prepares the inputs from the various FLORIS data structures
+        This function prepares the inputs from the various FLORIS misc_data structures
         for use in the Jensen model. This should only be used to 'initialize'
-        the inputs. For any data that should be updated successively,
-        do not use this function and instead pass that data directly to
+        the inputs. For any misc_data that should be updated successively,
+        do not use this function and instead pass that misc_data directly to
         the model function.
         """
         kwargs = {

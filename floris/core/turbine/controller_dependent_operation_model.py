@@ -108,7 +108,7 @@ class ControllerDependentTurbine(BaseOperationModel):
         # Need to loop over findices to use fsolve
         for i in np.arange(n_findex):
             for j in np.arange(n_turbines):
-                # Create data tuple for fsolve
+                # Create misc_data tuple for fsolve
                 data = (
                     sigma,
                     cd,
@@ -201,7 +201,7 @@ class ControllerDependentTurbine(BaseOperationModel):
         # ratio of yawed to unyawed thrust coefficients
         ratio = p / p0
 
-        # Extract data from lookup table and construct interpolator
+        # Extract misc_data from lookup table and construct interpolator
         cp_ct_data = power_thrust_table["controller_dependent_turbine_parameters"]["cp_ct_data"]
         cp_i = np.array(cp_ct_data["cp_lut"])
         pitch_i = np.array(cp_ct_data["pitch_lut"])
@@ -228,7 +228,7 @@ class ControllerDependentTurbine(BaseOperationModel):
 
         if power.max() > (power_thrust_table["controller_dependent_turbine_parameters"]
                                             ["rated_power"] * 1e3 * 1.01):
-            print("Powers more than 1% above rated detected. Consider checking Cp-Ct data.")
+            print("Powers more than 1% above rated detected. Consider checking Cp-Ct misc_data.")
         power = np.clip(
             power,
             0,
@@ -360,7 +360,7 @@ class ControllerDependentTurbine(BaseOperationModel):
         # Compute ratio of yawed to unyawed thrust coefficients
         ratio = thrust_coefficient1 / thrust_coefficient0 # See above eq. (29)
 
-        # Extract data from lookup table and construct interpolator
+        # Extract misc_data from lookup table and construct interpolator
         cp_ct_data = power_thrust_table["controller_dependent_turbine_parameters"]["cp_ct_data"]
         ct_i = np.array(cp_ct_data["ct_lut"])
         pitch_i = np.array(cp_ct_data["pitch_lut"])
@@ -719,7 +719,7 @@ class ControllerDependentTurbine(BaseOperationModel):
             y = aero_pow - electric_pow
             return y
 
-        # Extract data from lookup table
+        # Extract misc_data from lookup table
         cp_ct_data = power_thrust_table["controller_dependent_turbine_parameters"]["cp_ct_data"]
         cp_i = np.array(cp_ct_data["cp_lut"])
         pitch_i = np.array(cp_ct_data["pitch_lut"])
@@ -940,7 +940,7 @@ class ControllerDependentTurbine(BaseOperationModel):
         """
         System of equations for Ct, as represented in Eq. (25) of Tamaro et al.
         x is a stand-in variable for Ct, which a numerical solver will solve for.
-        data is a tuple of input parameters to the system of equations to solve.
+        misc_data is a tuple of input parameters to the system of equations to solve.
         """
         sigma, cd, cl_alfa, gamma, delta, k, cosMu, sinMu, tsr, theta, MU = data
         # Add a small misalignment in case MU = 0 to avoid division by 0

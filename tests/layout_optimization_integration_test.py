@@ -24,7 +24,7 @@ from floris.optimization.layout_optimization.layout_optimization_scipy import (
 from floris.wind_data import WindDataBase
 
 
-TEST_DATA = Path(__file__).resolve().parent / "data"
+TEST_DATA = Path(__file__).resolve().parent / "misc_data"
 YAML_INPUT = TEST_DATA / "input_full.yaml"
 
 test_boundaries = [(0.0, 0.0), (0.0, 1000.0), (1000.0, 1000.0), (1000.0, 0.0), (0.0, 0.0)]
@@ -39,7 +39,7 @@ def test_base_class(caplog):
     freq = np.ones((5, 5))
     freq = freq / freq.sum()
 
-    # Check that warning is raised if fmodel does not contain wind_data
+    # Check that warning is raised if fmodel does not contain wind_roses
     with caplog.at_level(logging.WARNING):
         LayoutOptimization(fmodel, test_boundaries, 5)
     assert caplog.text != "" # Checking not empty

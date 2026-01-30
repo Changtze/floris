@@ -308,7 +308,7 @@ def visualize_quiver(cut_plane, ax=None, min_speed=None, max_speed=None, downSam
         # **kwargs
     )
 
-    # ax.quiverkey(QV1, -.75, -0.4, 1, '1 m/s', coordinates='data')
+    # ax.quiverkey(QV1, -.75, -0.4, 1, '1 m/s', coordinates='misc_data')
 
     # Make equal axis
     # ax.set_aspect('equal')

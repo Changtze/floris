@@ -1,4 +1,4 @@
-"""Example: Multi-dimensional power/thrust coefficient data
+"""Example: Multi-dimensional power/thrust coefficient misc_data
 This example creates a FLORIS instance and:
 1) Makes a two-turbine layout
 2) Demonstrates single ws/wd simulations
@@ -9,7 +9,7 @@ power/thrust coefficient table.
 
 In the input file `gch_multi_dim_cp_ct.yaml`, the turbine_type points to a turbine definition,
 iea_15MW_floating_multi_dim_cp_ct.yaml located in the turbine_library,
-that supplies a multi-dimensional power/thrust coefficient data file in the form of a .csv file.
+that supplies a multi-dimensional power/thrust coefficient misc_data file in the form of a .csv file.
 This .csv file contains two additional conditions to define power and thrust coefficient values for:
 Tp for wave period, and Hs for wave height. For every combination of Tp and Hs defined, a
 power/thrust coefficient/Wind speed table of values is also defined. It is required for this .csv
@@ -19,9 +19,9 @@ the turbine definition. With this flag enabled, the solver will down-select to u
 interpolant defined at the closest conditions. The user must supply these conditions in the
 main input file under the 'flow_field' section, e.g.:
 
-NOTE: The multi-dimensional power/thrust coefficient data used in this example is fictional for the
+NOTE: The multi-dimensional power/thrust coefficient misc_data used in this example is fictional for the
 purposes of facilitating this example. The power/thrust coefficient values for the different wave
-conditions are scaled values of the original power/thrust coefficient data for the IEA 15MW turbine.
+conditions are scaled values of the original power/thrust coefficient misc_data for the IEA 15MW turbine.
 
 flow_field:
   multidim_conditions:
@@ -32,7 +32,7 @@ The solver will then use the nearest-neighbor interpolant. These conditions are 
 and used to select the interpolant at each turbine.
 
 Also note in the example below that there is a specific method for computing powers when
-using turbines with multi-dimensional power/thrust coefficient data under FlorisModel, called
+using turbines with multi-dimensional power/thrust coefficient misc_data under FlorisModel, called
 'get_turbine_powers_multidim'. The normal 'get_turbine_powers' method will not work.
 """
 

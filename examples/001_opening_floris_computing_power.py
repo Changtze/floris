@@ -39,7 +39,7 @@ fmodel.set(turbulence_intensities=np.array([0.07]))
 # The number of elements in the wind_speeds, wind_directions, and turbulence_intensities
 # corresponds to the number of conditions to be simulated.  In FLORIS, each of these are
 # tracked by a simple index called a findex.  There is no requirement that the values
-# be unique.  Internally in FLORIS, most data structures will have the findex as their
+# be unique.  Internally in FLORIS, most misc_data structures will have the findex as their
 # 0th dimension.  The value n_findex is the total number of conditions to be simulated.
 # This command would simulate 4 conditions (n_findex = 4).
 fmodel.set(

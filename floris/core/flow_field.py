@@ -179,7 +179,7 @@ class FlowField(BaseClass):
         if self.het_map is None:
             speed_ups = 1.0
 
-        # If heterogeneous flow data is given, the speed ups at the defined
+        # If heterogeneous flow misc_data is given, the speed ups at the defined
         # grid locations are determined in either 2 or 3 dimensions.
         else:
             if isinstance(self.het_map[0], NearestNDInterpolator):

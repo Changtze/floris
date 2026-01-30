@@ -16,7 +16,7 @@ from floris import (
 )
 
 
-# Generate time series data using a random walk on wind speeds with constant wind direction
+# Generate time series misc_data using a random walk on wind speeds with constant wind direction
 N = 5000
 n_turbines = 25
 

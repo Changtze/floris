@@ -20,7 +20,7 @@ WIND_SPEEDS = [8.0] * 4
 TURBULENCE_INTENSITIES = [0.1] * 4
 FARM_POWER_BASELINE = [5.261863e+06, 3.206038e+06, 5.261863e+06, 3.206038e+06]
 
-# These are the input data structures for each optimization method along with the output
+# These are the input misc_data structures for each optimization method along with the output
 # optimized yaw angles
 baseline_serial_refine = pd.DataFrame(
         {
@@ -106,7 +106,7 @@ def test_serial_refine(sample_inputs_fixture):
 
 def test_geometric_yaw(sample_inputs_fixture):
     """
-    The Geometric Yaw optimization method optimizes yaw angles using geometric data and derived
+    The Geometric Yaw optimization method optimizes yaw angles using geometric misc_data and derived
     optimal yaw relationships. This test compares the optimization results from the Geometric Yaw
     optimization for a simple farm with a simple wind rose to stored baseline results.
     """

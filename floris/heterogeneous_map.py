@@ -163,7 +163,7 @@ class HeterogeneousMap(LoggingManager):
         else:
             num_dim = 3
 
-        # Make a pandas dataframe of the data
+        # Make a pandas dataframe of the misc_data
         df = pd.DataFrame(
             data=self.speed_multipliers,
             index=self.wind_directions,

@@ -121,7 +121,7 @@ print("Baseline AEP: {:.2f} GWh.".format(aep_baseline/1E9))
 print("Optimal AEP: {:.2f} GWh.".format(aep_opt/1E9))
 print("Relative AEP uplift by wake steering: {:.3f} %.".format(aep_uplift))
 
-# Use farm_power_baseline, farm_power_opt and wind_data to make a heat map of uplift by
+# Use farm_power_baseline, farm_power_opt and wind_roses to make a heat map of uplift by
 # wind direction and wind speed
 wind_directions = wind_rose.wind_directions
 wind_speeds = wind_rose.wind_speeds

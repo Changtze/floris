@@ -6,7 +6,7 @@ generated at each time step or wind condition (e.g., the price of electricity). 
 can then be used in later optimization methods to optimize for total value instead of
 energy. This time series is then used to instantiate a TimeSeries object. The TimeSeries
 object is then used to instantiate a WindRose object and WindTIRose object based on the
-same data. The three objects are then each used to drive a FLORIS model of a simple
+same misc_data. The three objects are then each used to drive a FLORIS model of a simple
 two-turbine wind farm. The annual energy production (AEP) and annual value production
 (AVP) outputs are then compared and printed to the console.
 

@@ -1,7 +1,7 @@
 """Example: Setting FLORIS with WindRoseWRG
 
 This example shows how to set a FLORIS model with a WindRoseWRG object.  When a WindRoseWRG object
-is set as the wind data in a FLORIS model, the wind roses for each turbine in the layout are
+is set as the wind misc_data in a FLORIS model, the wind roses for each turbine in the layout are
 generated and stored in the WindRoseWRG object.  The wind roses are then used to calculate the
 expected turbine powers and farm power.
 """
@@ -54,7 +54,7 @@ wind_rose_wrg.plot_wind_roses(axarr=axarr, ws_step=5)
 fmodel = FlorisModel("../inputs/gch.yaml")
 fmodel.set(layout_x=layout_x, layout_y=layout_y)
 
-# Set the wind data as the wind_rose_wrg
+# Set the wind misc_data as the wind_rose_wrg
 fmodel.set(wind_data=wind_rose_wrg)
 
 # Run the model and get the expected turbine powers and farm power

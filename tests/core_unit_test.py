@@ -12,7 +12,7 @@ from floris.core import (
 )
 
 
-TEST_DATA = Path(__file__).resolve().parent / "data"
+TEST_DATA = Path(__file__).resolve().parent / "misc_data"
 YAML_INPUT = TEST_DATA / "input_full.yaml"
 DICT_INPUT = yaml.load(open(YAML_INPUT, "r"), Loader=yaml.SafeLoader)
 

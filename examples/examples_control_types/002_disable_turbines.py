@@ -23,7 +23,7 @@ fmodel.set_operation_model("mixed")
 # Consider a wind farm of 3 aligned wind turbines
 layout = np.array([[0.0, 0.0], [500.0, 0.0], [1000.0, 0.0]])
 
-# Run the computations for 2 identical wind data
+# Run the computations for 2 identical wind misc_data
 # (n_findex = 2)
 wind_directions = np.array([270.0, 270.0])
 wind_speeds = np.array([8.0, 8.0])

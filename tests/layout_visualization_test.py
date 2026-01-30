@@ -8,7 +8,7 @@ import floris.layout_visualization as layoutviz
 from floris import FlorisModel
 
 
-TEST_DATA = Path(__file__).resolve().parent / "data"
+TEST_DATA = Path(__file__).resolve().parent / "misc_data"
 YAML_INPUT = TEST_DATA / "input_full.yaml"
 
 

@@ -12,7 +12,7 @@ from floris import (
 )
 
 
-TEST_DATA = Path(__file__).resolve().parent / "data"
+TEST_DATA = Path(__file__).resolve().parent / "misc_data"
 YAML_INPUT = TEST_DATA / "input_full.yaml"
 
 WRG_FILE_FILE = TEST_DATA / "wrg_test.wrg"
@@ -49,9 +49,9 @@ def test_read_header():
 
 
 def test_read_data():
-    """Test reading the data of a WRG file.
+    """Test reading the misc_data of a WRG file.
 
-    The data of a WRG file is the information about each grid point, including
+    The misc_data of a WRG file is the information about each grid point, including
     the x, y, z, and h coordinates, the frequency of each sector, and the Weibull
     parameters for each sector.
     """

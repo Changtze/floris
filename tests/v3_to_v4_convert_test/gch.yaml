@@ -65,7 +65,7 @@ farm:
   # Coordinates for the turbine locations in the x-direction which is typically considered
   # to be the streamwise direction (left, right) when the wind is out of the west.
   # The order of the coordinates here corresponds to the index of the turbine in the primary
-  # data structures.
+  # misc_data structures.
   layout_x:
   - 0.0
 
@@ -74,7 +74,7 @@ farm:
   # Coordinates for the turbine locations in the y-direction which is typically considered
   # to be the spanwise direction (up, down) when the wind is out of the west.
   # The order of the coordinates here corresponds to the index of the turbine in the primary
-  # data structures.
+  # misc_data structures.
   layout_y:
   - 0.0
 

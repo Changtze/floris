@@ -18,7 +18,7 @@ import numpy.typing as npt
 from attrs import Attribute, define
 
 
-### Define general data types used throughout
+### Define general misc_data types used throughout
 
 floris_float_type = np.float64
 
@@ -34,19 +34,19 @@ NDArrayStr = npt.NDArray[np.str_]
 
 def floris_array_converter(data: Iterable) -> np.ndarray:
     """
-    For a given iterable, convert the data to a numpy array and cast to `floris_float_type`.
+    For a given iterable, convert the misc_data to a numpy array and cast to `floris_float_type`.
     If the input is a scalar, np.array() creates a 0-dimensional array, and this is not supported
     in FLORIS so this function raises an error.
 
     Args:
-        data (Iterable): The input data to be converted to a Numpy array.
+        data (Iterable): The input misc_data to be converted to a Numpy array.
 
     Raises:
-        TypeError: Raises if the input data is not iterable.
-        TypeError: Raises if the input data cannot be converted to a Numpy array.
+        TypeError: Raises if the input misc_data is not iterable.
+        TypeError: Raises if the input misc_data cannot be converted to a Numpy array.
 
     Returns:
-        np.ndarray: data converted to a Numpy array and cast to `floris_float_type`.
+        np.ndarray: misc_data converted to a Numpy array and cast to `floris_float_type`.
     """
     try:
         iter(data)
@@ -67,12 +67,12 @@ def floris_numeric_dict_converter(data: dict) -> dict:
     raised.
 
     Args:
-        data (dict): Dictionary of data to be converted to a numeric type.
+        data (dict): Dictionary of misc_data to be converted to a numeric type.
 
     Returns:
         dict: Dictionary with the same keys and all values converted to a numeric type.
     """
-    converted_dict = copy.deepcopy(data)  # deepcopy -> data is a container and passed by reference
+    converted_dict = copy.deepcopy(data)  # deepcopy -> misc_data is a container and passed by reference
     for k, v in data.items():
         try:
             iter(v)
@@ -187,20 +187,20 @@ def convert_to_path(fn: str | Path) -> Path:
 @define
 class FromDictMixin:
     """
-    A Mixin class to allow for kwargs overloading when a data class doesn't
+    A Mixin class to allow for kwargs overloading when a misc_data class doesn't
     have a specific parameter defined. This allows passing of larger dictionaries
-    to a data class without throwing an error.
+    to a misc_data class without throwing an error.
     """
 
     @classmethod
     def from_dict(cls, data: dict):
-        """Maps a data dictionary to an `attr`-defined class.
+        """Maps a misc_data dictionary to an `attr`-defined class.
 
         TODO: Add an error to ensure that either none or all the parameters are passed in
 
         Args:
             data : dict
-                The data dictionary to be mapped.
+                The misc_data dictionary to be mapped.
         Returns:
             cls
                 The `attr`-defined class.

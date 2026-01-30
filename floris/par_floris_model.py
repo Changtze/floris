@@ -52,7 +52,7 @@ class ParFlorisModel(FlorisModel):
         if isinstance(configuration, FlorisModel):
             configuration_dict = configuration.core.as_dict()
             super().__init__(configuration_dict)
-            # Copy over any control setpoints, wind data, if not already done.
+            # Copy over any control setpoints, wind misc_data, if not already done.
             self.set(
                 yaw_angles=configuration.core.farm.yaw_angles,
                 power_setpoints=configuration.core.farm.power_setpoints,
@@ -117,7 +117,7 @@ class ParFlorisModel(FlorisModel):
         if self.return_turbine_powers_only:
             # TODO: code here that does not return flow fields
             # Somehow, overload methods on FlorisModel that need flow field
-            # data.
+            # misc_data.
 
             # This version will call super().get_turbine_powers() on each of
             # the splits, and return them somehow.
@@ -320,7 +320,7 @@ class ParFlorisModel(FlorisModel):
             fmodel_dict_split["flow_field"]["wind_speeds"] = wind_speeds
             fmodel_dict_split["flow_field"]["turbulence_intensities"] = turbulence_intensities
 
-            # Prepare lightweight data to pass along
+            # Prepare lightweight misc_data to pass along
             multiargs.append((fmodel_dict_split, control_setpoints_subset))
 
         return multiargs

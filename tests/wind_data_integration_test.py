@@ -12,7 +12,7 @@ from floris import (
 from floris.wind_data import WindDataBase
 
 
-TEST_DATA = Path(__file__).resolve().parent / "data"
+TEST_DATA = Path(__file__).resolve().parent / "misc_data"
 
 
 class ChildClassTest(WindDataBase):
@@ -662,7 +662,7 @@ def test_time_series_to_WindRose():
     assert freq_table.shape[0] == 3
     assert freq_table.shape[1] == 1
 
-    # The frequencies should [2/3, 0, 1/3] given that 2 of the data points
+    # The frequencies should [2/3, 0, 1/3] given that 2 of the misc_data points
     # fall in the 260 deg bin, 0 in the 262 deg bin and 1 in the 264 deg bin
     assert np.allclose(freq_table.squeeze(), [2 / 3, 0, 1 / 3])
 
@@ -1044,9 +1044,9 @@ def test_gen_heterogeneous_inflow_config_with_wind_directions_and_wind_speeds_wi
 
 
 def test_read_csv_long():
-    # Read in the wind rose data from the csv file
+    # Read in the wind rose misc_data from the csv file
 
-    # First confirm that the data raises value error when wrong columns passed
+    # First confirm that the misc_data raises value error when wrong columns passed
     with pytest.raises(ValueError):
         wind_rose = WindRose.read_csv_long(TEST_DATA / "wind_rose.csv")
 
@@ -1065,7 +1065,7 @@ def test_read_csv_long():
         ti_col_or_value=0.06,
     )
 
-    # Confirm that data read in correctly, and the missing wd/ws bins are filled with zeros
+    # Confirm that misc_data read in correctly, and the missing wd/ws bins are filled with zeros
     expected_result = np.array([[0.25, 0.25], [0.5, 0]])
     np.testing.assert_allclose(wind_rose.freq_table, expected_result)
 
@@ -1087,7 +1087,7 @@ def test_read_csv_long():
 
 
 def test_read_csv_long_ti():
-    # Read in the wind rose data from the csv file
+    # Read in the wind rose misc_data from the csv file
 
     # Now read in with correct columns
     wind_ti_rose = WindTIRose.read_csv_long(

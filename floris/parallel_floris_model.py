@@ -211,7 +211,7 @@ class ParallelFlorisModel(LoggingManager):
             solver_settings (dict | None, optional): Solver settings. Defaults to None.
             heterogeneous_inflow_config (None, optional): heterogeneous inflow configuration.
                 Defaults to None.
-            wind_data (type[WindDataBase] | None, optional): Wind data. Defaults to None.
+            wind_data (type[WindDataBase] | None, optional): Wind misc_data. Defaults to None.
             yaw_angles (NDArrayFloat | list[float] | None, optional): Turbine yaw angles.
                 Defaults to None.
             power_setpoints (NDArrayFloat | list[float] | list[float, None] | None, optional):
@@ -296,7 +296,7 @@ class ParallelFlorisModel(LoggingManager):
             fmodel_dict_split["flow_field"]["wind_speeds"] = wind_speeds
             fmodel_dict_split["flow_field"]["turbulence_intensities"] = turbulence_intensities
 
-            # Prepare lightweight data to pass along
+            # Prepare lightweight misc_data to pass along
             multiargs.append((fmodel_dict_split, yaw_angles_subset))
 
         return multiargs

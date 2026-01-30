@@ -140,7 +140,7 @@ class Core(BaseClass):
 
         # Initialize field quantities; doing this immediately prior to doing
         # the calculation step allows for manipulating inputs in a script
-        # without changing the data structures
+        # without changing the misc_data structures
         self.flow_field.initialize_velocity_field(self.grid)
 
         # Initialize farm quantities

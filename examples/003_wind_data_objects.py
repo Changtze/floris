@@ -1,6 +1,6 @@
 """Example 3: Wind Data Objects
 
-This example demonstrates the use of wind data objects in FLORIS:
+This example demonstrates the use of wind misc_data objects in FLORIS:
  TimeSeries, WindRose, and WindTIRose.
 
  For each of the WindData objects, examples are shown of:
@@ -30,14 +30,14 @@ from floris import (
 # Initializing
 ##################################################
 
-# FLORIS provides a set of wind data objects to hold the ambient wind conditions in a
+# FLORIS provides a set of wind misc_data objects to hold the ambient wind conditions in a
 # convenient classes that include capabilities and methods to manipulate and visualize
-# the data.
+# the misc_data.
 
-# The TimeSeries class is used to hold time series data, such as wind speed, wind direction,
+# The TimeSeries class is used to hold time series misc_data, such as wind speed, wind direction,
 # and turbulence intensity.
 
-# There is also a "value" wind data variable, which represents the value of the power
+# There is also a "value" wind misc_data variable, which represents the value of the power
 # generated at each time step or wind condition (e.g., the price of electricity). This can
 # then be used in later optimization methods to optimize for quantities besides AEP.
 
@@ -55,7 +55,7 @@ time_series = TimeSeries(
     values=values,
 )
 
-# The WindRose class is used to hold wind rose data, such as wind speed, wind direction,
+# The WindRose class is used to hold wind rose misc_data, such as wind speed, wind direction,
 # and frequency.  TI and value are represented as bin averages per wind direction and
 # speed bin.
 wind_directions = np.arange(0, 360, 3.0)
@@ -101,8 +101,8 @@ wind_ti_rose = WindTIRose(
 # Broadcasting
 ##################################################
 
-# A convenience method of the wind data objects is that, unlike the lower-level
-# FlorisModel.set() method, the wind data objects can broadcast upward data provided
+# A convenience method of the wind misc_data objects is that, unlike the lower-level
+# FlorisModel.set() method, the wind misc_data objects can broadcast upward misc_data provided
 # as a scalar to the full array.  This is useful for setting the same wind conditions
 # for all turbines in a wind farm.
 
@@ -149,21 +149,21 @@ wind_rose_from_csv = WindRose.read_csv_long(
 # Aggregating and Resampling the Wind Rose
 ##################################################
 
-# The downsample function allows for aggregation of the wind rose data into
+# The downsample function allows for aggregation of the wind rose misc_data into
 # fewer wind direction and wind speed bins.
 # Note it will throw an error if the step sizes passed in are smaller than the
-# step sizes of the original data.
+# step sizes of the original misc_data.
 wind_rose_aggregate = wind_rose.downsample(wd_step=10, ws_step=2)
 
 # For upsampling, the upsample function can be used to interpolate
-# the wind rose data to a finer grid.  It can use either linear or nearest neighbor
+# the wind rose misc_data to a finer grid.  It can use either linear or nearest neighbor
 wind_rose_resample = wind_rose.upsample(wd_step=0.5, ws_step=0.25)
 
 ##################################################
 # Setting turbulence intensity
 ##################################################
 
-# Each of the wind data objects also has the ability to set the turbulence intensity
+# Each of the wind misc_data objects also has the ability to set the turbulence intensity
 # according to a function of wind speed and direction.  This can be done using a custom
 # function by using the assign_ti_using_wd_ws_function method. There is also a method
 # called assign_ti_using_IEC_method which assigns TI based on the IEC 61400-1 standard.
@@ -173,7 +173,7 @@ wind_rose.assign_ti_using_IEC_method()  # Assign using default settings for Iref
 # Setting value
 ##################################################
 
-# Similarly, each of the wind data objects also has the ability to set the value according to
+# Similarly, each of the wind misc_data objects also has the ability to set the value according to
 # a function of wind speed and direction.  This can be done using a custom function by using
 # the assign_value_using_wd_ws_function method. There is also a method called
 # assign_value_piecewise_linear which assigns value based on a linear piecewise function of
@@ -189,7 +189,7 @@ wind_rose.assign_value_piecewise_linear()
 # Plotting Wind Data Objects
 ##################################################
 
-# Certain plotting methods are included to enable visualization of the wind data objects
+# Certain plotting methods are included to enable visualization of the wind misc_data objects
 # Plotting a wind rose
 wind_rose.plot()
 
@@ -203,14 +203,14 @@ wind_rose.plot_ti_over_ws()
 wind_rose.plot_value_over_ws()
 
 ##################################################
-# Setting the FLORIS model via wind data
+# Setting the FLORIS model via wind misc_data
 ##################################################
 
-# Each of the wind data objects can be used to set the FLORIS model by passing
+# Each of the wind misc_data objects can be used to set the FLORIS model by passing
 # them in as is to the set method.  The FLORIS model will then use the member functions
-# of the wind data to extract the wind conditions for the simulation.  Frequency tables
+# of the wind misc_data to extract the wind conditions for the simulation.  Frequency tables
 # are also extracted for expected power and AEP-like calculations.
-# Similarly the value data is extracted and maintained.
+# Similarly the value misc_data is extracted and maintained.
 
 fmodel = FlorisModel("inputs/gch.yaml")
 

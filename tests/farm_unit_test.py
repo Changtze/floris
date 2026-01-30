@@ -106,7 +106,7 @@ def test_check_turbine_type(sample_inputs_fixture: SampleInputs):
 
     # All list of dicts from external library
     farm_data = deepcopy(sample_inputs_fixture.farm)
-    external_library = Path(__file__).parent / "data"
+    external_library = Path(__file__).parent / "misc_data"
     turbine_def = load_yaml(external_library / "nrel_5MW_custom.yaml")
     farm_data["turbine_type"] = [turbine_def] * 5
     farm_data["layout_x"] = np.arange(0, 500, 100)
@@ -117,7 +117,7 @@ def test_check_turbine_type(sample_inputs_fixture: SampleInputs):
 
     # Check that error is correctly raised if two turbines have the same name
     farm_data = deepcopy(sample_inputs_fixture.farm)
-    external_library = Path(__file__).parent / "data"
+    external_library = Path(__file__).parent / "misc_data"
     farm_data["layout_x"] = np.arange(0, 500, 100)
     farm_data["layout_y"] = np.zeros(5)
     turbine_def = load_yaml(external_library / "nrel_5MW_custom.yaml")
@@ -136,7 +136,7 @@ def test_check_turbine_type(sample_inputs_fixture: SampleInputs):
     # Check that no error is raised, and the expected hub heights are seen,
     # if turbine_type is correctly updated
     farm_data = deepcopy(sample_inputs_fixture.farm)
-    external_library = Path(__file__).parent / "data"
+    external_library = Path(__file__).parent / "misc_data"
     farm_data["layout_x"] = np.arange(0, 500, 100)
     farm_data["layout_y"] = np.zeros(5)
     turbine_def = load_yaml(external_library / "nrel_5MW_custom.yaml")
@@ -155,7 +155,7 @@ def test_check_turbine_type(sample_inputs_fixture: SampleInputs):
 
     # Duplicate type found in external and internal library
     farm_data = deepcopy(sample_inputs_fixture.farm)
-    external_library = Path(__file__).parent / "data"
+    external_library = Path(__file__).parent / "misc_data"
     farm_data["turbine_library_path"] = external_library
     farm_data["turbine_type"] = ["nrel_5MW"]
     with pytest.raises(ValueError):
@@ -163,7 +163,7 @@ def test_check_turbine_type(sample_inputs_fixture: SampleInputs):
 
     # 1 turbine as string from internal library, 1 turbine as dict from external library
     farm_data = deepcopy(sample_inputs_fixture.farm)
-    external_library = Path(__file__).parent / "data"
+    external_library = Path(__file__).parent / "misc_data"
     turbine_def = load_yaml(external_library / "nrel_5MW_custom.yaml")
     farm_data["turbine_type"] = [turbine_def] * 5
     farm_data["layout_x"] = np.arange(0, 500, 100)
@@ -175,7 +175,7 @@ def test_check_turbine_type(sample_inputs_fixture: SampleInputs):
 
     # 1 turbine as string from internal library, 1 turbine as string from external library
     farm_data = deepcopy(sample_inputs_fixture.farm)
-    external_library = Path(__file__).parent / "data"
+    external_library = Path(__file__).parent / "misc_data"
     farm_data["turbine_library_path"] = external_library
     farm_data["turbine_type"] = 4 * ["iea_10MW"] + ["nrel_5MW_custom"]
     farm_data["layout_x"] = np.arange(0, 500, 100)
@@ -186,7 +186,7 @@ def test_check_turbine_type(sample_inputs_fixture: SampleInputs):
 
 
 def test_farm_external_library(sample_inputs_fixture: SampleInputs):
-    external_library = Path(__file__).parent / "data"
+    external_library = Path(__file__).parent / "misc_data"
 
     # Demonstrate a passing case
     farm_data = deepcopy(SampleInputs().farm)

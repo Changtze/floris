@@ -46,7 +46,7 @@ fmodel_2d = FlorisModel("../inputs/gch_heterogeneous_inflow.yaml")
 fmodel_2d.set(wind_shear=0.0)
 
 # Using the FlorisModel functions for generating plots, run FLORIS
-# and extract 2D planes of data.
+# and extract 2D planes of misc_data.
 horizontal_plane_2d = fmodel_2d.calculate_horizontal_plane(
     x_resolution=200, y_resolution=100, height=90.0
 )
@@ -107,7 +107,7 @@ fmodel_3d.set(wind_shear=0.0)
 fmodel_3d.set(heterogeneous_inflow_config=heterogeneous_inflow_config)
 
 # Using the FlorisModel functions for generating plots, run FLORIS
-# and extract 2D planes of data.
+# and extract 2D planes of misc_data.
 horizontal_plane_3d = fmodel_3d.calculate_horizontal_plane(
     x_resolution=200, y_resolution=100, height=90.0
 )

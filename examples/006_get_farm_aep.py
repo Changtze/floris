@@ -5,9 +5,9 @@ frequency of each findex.  This is done by the `get_expected_farm_power` method.
 AEP is annual energy production is computed by multiplying the expected power by the number of
 hours in a year.
 
-If a wind_data object is provided to the model, the expected power and AEP
+If a wind_roses object is provided to the model, the expected power and AEP
  can be computed directly by the`get_farm_AEP_with_wind_data` using the frequency table
- of the wind data object.  If not, a frequency table must be passed into these functions
+ of the wind misc_data object.  If not, a frequency table must be passed into these functions
 
 
 """
@@ -42,7 +42,7 @@ time_series = TimeSeries(
     wind_directions=wind_directions, wind_speeds=wind_speeds, turbulence_intensities=0.06
 )
 
-# Set the wind data
+# Set the wind misc_data
 fmodel.set(wind_data=time_series)
 
 # Run the model

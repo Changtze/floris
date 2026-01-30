@@ -14,7 +14,7 @@ from floris.core.turbine.operation_models import POWER_SETPOINT_DEFAULT, POWER_S
 from tests.conftest import SampleInputs
 
 
-TEST_DATA = Path(__file__).resolve().parent / "data"
+TEST_DATA = Path(__file__).resolve().parent / "misc_data"
 YAML_INPUT = TEST_DATA / "input_full.yaml"
 
 
@@ -848,7 +848,7 @@ def test_reference_wind_height_methods(caplog):
 
 def test_merge_floris_models():
 
-    # Check that the merge function extends the data as expected
+    # Check that the merge function extends the misc_data as expected
     fmodel1 = FlorisModel(configuration=YAML_INPUT)
     fmodel1.set(
         layout_x=[0, 1000],
@@ -982,7 +982,7 @@ def test_set_multidim():
     turbine["power_thrust_table"]["power_thrust_data_file"] = "iea_15MW_multi_dim_TI.csv"
     fmodel.set(
         turbine_type=[turbine],
-        turbine_library_path=Path(__file__).resolve().parent / "data/"
+        turbine_library_path=Path(__file__).resolve().parent / "misc_data/"
     )
 
     with pytest.raises(ValueError):

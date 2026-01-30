@@ -1,9 +1,9 @@
 """Example: Multi-dimensional power/thrust coefficient with 2 Hs values
 This example follows the previous example but shows the effect of changing the Hs setting.
 
-NOTE: The multi-dimensional power/thrust coefficient data used in this example is fictional for the
+NOTE: The multi-dimensional power/thrust coefficient misc_data used in this example is fictional for the
 purposes of facilitating this example. The power/thrust coefficient values for the different wave
-conditions are scaled values of the original power/thrust coefficient data for the IEA 15MW turbine.
+conditions are scaled values of the original power/thrust coefficient misc_data for the IEA 15MW turbine.
 """
 
 

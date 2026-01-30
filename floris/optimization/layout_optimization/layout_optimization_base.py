@@ -39,7 +39,7 @@ class LayoutOptimization(LoggingManager):
         enable_geometric_yaw=False,
         use_value=False,
     ):
-        self.fmodel = fmodel.copy() # Does not copy over the wind_data object
+        self.fmodel = fmodel.copy() # Does not copy over the wind_roses object
         self.fmodel.set(wind_data=fmodel.wind_data)
         self.boundaries = boundaries
         self.enable_geometric_yaw = enable_geometric_yaw
@@ -74,14 +74,14 @@ class LayoutOptimization(LoggingManager):
         else:
             self.min_dist = min_dist
 
-        # Check that wind_data is a WindDataBase object
+        # Check that wind_roses is a WindDataBase object
         if (not isinstance(self.fmodel.wind_data, WindDataBase)):
             # NOTE: it is no longer strictly necessary that fmodel use
             # a WindData object, but it is still recommended.
             self.logger.warning(
                 "Running layout optimization without a WindData object (e.g. TimeSeries, WindRose, "
                 "WindTIRose). We suggest that the user set the wind conditions (and if applicable, "
-                "frequencies and values) on the FlorisModel using the wind_data keyword argument "
+                "frequencies and values) on the FlorisModel using the wind_roses keyword argument "
                 "for layout optimizations to capture frequencies and the value of the energy "
                 "production accurately. If a WindData object is not defined, uniform frequencies "
                 "will be assumed. If use_value is True and a WindData object is not defined, a "

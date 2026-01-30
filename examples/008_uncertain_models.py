@@ -5,7 +5,7 @@ on the FlorisModel class. The UncertainFlorisModel class is interacted with in t
 same manner as the FlorisModel class is. This example demonstrates how the
 wind farm power production is calculated with and without uncertainty.
 Other use cases of UncertainFlorisModel are, e.g., comparing FLORIS to
-historical SCADA data and robust optimization.
+historical SCADA misc_data and robust optimization.
 
 For more details on using uncertain models, see further examples within the
 examples_uncertain directory.

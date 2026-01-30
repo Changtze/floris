@@ -21,7 +21,7 @@ def build_cosine_loss_turbine_dict(
     ref_tilt=5.0
 ):
     """
-    Tool for formatting a full turbine dict from data formatted as a
+    Tool for formatting a full turbine dict from misc_data formatted as a
     dictionary.
 
     Default value for turbine physical parameters are from the NREL 5MW reference

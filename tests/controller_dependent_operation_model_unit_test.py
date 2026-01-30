@@ -456,11 +456,11 @@ def test_ControllerDependentTurbine_integration():
 
 def test_CpCt_data_consistency():
     """
-    Test that the Cp/Ct data is consistent, within reason, with the "normal" data.
+    Test that the Cp/Ct misc_data is consistent, within reason, with the "normal" misc_data.
 
     These tests currently do not pass, and the "assert" statements have been removed.
     However, the code has been left in place to highlight the differences and leave room for
-    possibly updating the Cp/Ct data in future to match the reference power and thrust curves.
+    possibly updating the Cp/Ct misc_data in future to match the reference power and thrust curves.
     """
 
     n_turbines = 1
@@ -474,7 +474,7 @@ def test_CpCt_data_consistency():
     # Check power, thrust, and axial induction for IEA 15MW, IEA 10MW, and NREL 5MW
     for turbine in ["iea_15MW", "iea_10MW", "nrel_5MW"]:
         # Get the turbine_data
-        yaml_file = Path(__file__).resolve().parent / "data" / "input_full.yaml"
+        yaml_file = Path(__file__).resolve().parent / "misc_data" / "input_full.yaml"
         fmodel = FlorisModel(configuration=yaml_file)
         fmodel.set(turbine_type=[turbine])
         power_thrust_table = fmodel.core.farm.turbine_map[0].power_thrust_table
@@ -531,7 +531,7 @@ def test_CpCt_data_consistency():
         # Don't match below cut-in or above cut-out; this is known. Mask those out.
         nonzero_power = power_base > 0
 
-        # Check within 5% of the base data (currently fails, "asserts" removed)
+        # Check within 5% of the base misc_data (currently fails, "asserts" removed)
         np.allclose(power_base[nonzero_power], power_test[nonzero_power], rtol=5e-2)
         np.allclose(
             thrust_coefficient_base[nonzero_power],
@@ -545,7 +545,7 @@ def test_CpCt_data_consistency():
         )
 
 def test_CpCt_warning(caplog):
-    yaml_file = Path(__file__).resolve().parent / "data" / "input_full.yaml"
+    yaml_file = Path(__file__).resolve().parent / "misc_data" / "input_full.yaml"
     fmodel = FlorisModel(configuration=yaml_file)
 
     with caplog.at_level(logging.WARNING):

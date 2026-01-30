@@ -131,7 +131,7 @@ class TurbineGrid(Grid):
     def set_grid(self) -> None:
         """
         Create grid points at each turbine for each wind direction and wind speed in the simulation.
-        This creates the underlying data structure for the calculation.
+        This creates the underlying misc_data structure for the calculation.
 
         arrays have shape
         (n wind directions, n wind speeds, n turbines, m grid spanwise, m grid vertically)
@@ -192,7 +192,7 @@ class TurbineGrid(Grid):
         #         the rotor radius.
         #         Defaults to 0.5.
 
-        # Create the data for the turbine grids
+        # Create the misc_data for the turbine grids
         radius_ratio = 0.5
         disc_area_radius = radius_ratio * self.turbine_diameters / 2
         template_grid = np.ones(

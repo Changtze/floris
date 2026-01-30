@@ -113,7 +113,7 @@ class UncertainFlorisModel(LoggingManager):
         # Instantiate the un-expanded FlorisModel
         if isinstance(configuration, (FlorisModel, ParFlorisModel)):
             self.fmodel_unexpanded = configuration.copy()
-            # Copy over any control setpoints, wind data, if not already done.
+            # Copy over any control setpoints, wind misc_data, if not already done.
             self.fmodel_unexpanded.set(
                 yaw_angles=configuration.core.farm.yaw_angles,
                 power_setpoints=configuration.core.farm.power_setpoints,
@@ -830,12 +830,12 @@ class UncertainFlorisModel(LoggingManager):
         self, input_array, wd_sample_points, fix_yaw_to_nominal_direction=False, n_turbines=None
     ):
         """
-        Expand wind direction data.
+        Expand wind direction misc_data.
 
         Args:
             input_array (numpy.ndarray): 2D numpy array of shape (m, n)
-            representing wind direction data,
-                where m is the number of data points and n is the number of features.
+            representing wind direction misc_data,
+                where m is the number of misc_data points and n is the number of features.
                 The first column
                 represents wind direction.
             wd_sample_points (list): List of integers representing
@@ -846,7 +846,7 @@ class UncertainFlorisModel(LoggingManager):
                 if fix_yaw_to_nominal_direction is True.
 
         Returns:
-            numpy.ndarray: Expanded wind direction data as a 2D numpy array
+            numpy.ndarray: Expanded wind direction misc_data as a 2D numpy array
                 of shape (m * p, n), where
                 p is the number of sample points.
 
@@ -854,7 +854,7 @@ class UncertainFlorisModel(LoggingManager):
             ValueError: If wd_sample_points does not have an odd length or
                 if the middle element is not 0.
 
-        This function takes wind direction data and expands it
+        This function takes wind direction misc_data and expands it
         by perturbing the wind direction column
         based on a list of sample points. It vertically stacks
         copies of the input array with the wind
@@ -876,7 +876,7 @@ class UncertainFlorisModel(LoggingManager):
         num_samples = len(wd_sample_points)
         num_rows = input_array.shape[0]
 
-        # Create an array to hold the expanded data
+        # Create an array to hold the expanded misc_data
         output_array = np.zeros((num_rows * num_samples, input_array.shape[1]))
 
         # Repeat each row of input_array for each sample point

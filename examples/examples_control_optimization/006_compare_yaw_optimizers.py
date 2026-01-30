@@ -74,6 +74,7 @@ print(" Time spent, SciPy (SLSQP): {:.2f} s.\n".format(time_scipy))
 
 # Split out the turbine results
 yaw_angles_opt_geo = np.vstack(df_opt_geo.yaw_angles_opt)
+
 yaw_angles_opt_sr = np.vstack(df_opt_sr.yaw_angles_opt)
 yaw_angles_opt_scipy = np.vstack(df_opt_scipy.yaw_angles_opt)
 

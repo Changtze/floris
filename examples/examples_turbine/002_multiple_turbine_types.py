@@ -17,7 +17,7 @@ from floris import FlorisModel
 fmodel = FlorisModel("../inputs/gch_multiple_turbine_types.yaml")
 
 # Using the FlorisModel functions for generating plots, run FLORIS
-# and extract 2D planes of data.
+# and extract 2D planes of misc_data.
 horizontal_plane = fmodel.calculate_horizontal_plane(x_resolution=200, y_resolution=100, height=90)
 y_plane = fmodel.calculate_y_plane(x_resolution=200, z_resolution=100, crossstream_dist=0.0)
 cross_plane = fmodel.calculate_cross_plane(

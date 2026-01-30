@@ -69,7 +69,7 @@ farm:
   ###
   # x-coordinates for the turbine locations, with the x axis corresponding to the
   # "west to east" direction. The order of the coordinates corresponds to the index of the
-  # turbine in the primary data structures.
+  # turbine in the primary misc_data structures.
   # List of float type.
   layout_x:
   - 0.0
@@ -79,7 +79,7 @@ farm:
   ###
   # y-coordinates for the turbine locations, with the y axis corresponding to the
   # "south to north" direction. The order of the coordinates corresponds to the index of the
-  # turbine in the primary data structures.
+  # turbine in the primary misc_data structures.
   # List of float type.
   layout_y:
   - 0.0

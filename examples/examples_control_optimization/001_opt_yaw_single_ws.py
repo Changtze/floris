@@ -81,6 +81,8 @@ optimal_yaw_angles = (
     df_opt[(df_opt["wind_direction"] == 270.0) & (df_opt["wind_speed"] == 8.0)]
     .yaw_angles_opt.values[0]
 ).reshape(1,-1)
+
+print(np.shape(optimal_yaw_angles))
 fmodel.set(yaw_angles=optimal_yaw_angles)
 fmodel.run()
 horizontal_plane = fmodel.calculate_horizontal_plane(height=90.0)

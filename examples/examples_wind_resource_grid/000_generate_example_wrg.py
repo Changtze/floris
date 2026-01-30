@@ -53,7 +53,7 @@ num_sectors = 12  # Number of direction sectors
 
 
 ##################################################
-# Generating data
+# Generating misc_data
 ##################################################
 # The above parameters define a 3x3 grid of points.  Let's start
 # by assuming the point at (0,0) has the wind rose as

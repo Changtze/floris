@@ -1,8 +1,8 @@
 """Example: WindRoseWRG
 
 `WindRoseWRG` is a type of WindData object, like `WindRose` and `TimeSeries`, that
-is used to store wind data in a format that can be used by the FLORIS model.  `WindRoseWRG`
-is different that `WindRose` however because the internal data holds the information
+is used to store wind misc_data in a format that can be used by the FLORIS model.  `WindRoseWRG`
+is different that `WindRose` however because the internal misc_data holds the information
 of the WRG file and then a `WindRose` object is created for each turbine in a provided
 layout.
 

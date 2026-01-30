@@ -54,7 +54,7 @@ def sequential_solver(
     # Algorithm
     # For each turbine, calculate its effect on every downstream turbine.
     # For the current turbine, we are calculating the deficit that it adds to downstream turbines.
-    # Integrate this into the main data structure.
+    # Integrate this into the main misc_data structure.
     # Move on to the next turbine.
 
     # <<interface>>
@@ -952,7 +952,7 @@ def turbopark_solver(
     # Algorithm
     # For each turbine, calculate its effect on every downstream turbine.
     # For the current turbine, we are calculating the deficit that it adds to downstream turbines.
-    # Integrate this into the main data structure.
+    # Integrate this into the main misc_data structure.
     # Move on to the next turbine.
 
     # <<interface>>
@@ -1199,7 +1199,7 @@ def empirical_gauss_solver(
     Algorithm:
     For each turbine, calculate its effect on every downstream turbine.
     For the current turbine, we are calculating the deficit that it adds to downstream turbines.
-    Integrate this into the main data structure.
+    Integrate this into the main misc_data structure.
     Move on to the next turbine.
 
     Args:

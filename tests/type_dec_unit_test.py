@@ -123,8 +123,8 @@ def test_array_converter():
 
 def test_numeric_dict_converter():
     """
-    This function converts data in a dictionary to a numeric type.
-    If it can't convert the data, it will raise a TypeError.
+    This function converts misc_data in a dictionary to a numeric type.
+    If it can't convert the misc_data, it will raise a TypeError.
     It should support scalar, list, and numpy array types
     for values in the dictionary.
     """
@@ -192,7 +192,7 @@ def test_convert_to_path():
     with pytest.raises(FileExistsError):
         convert_to_path(str_input)
 
-    # Test that invalid data types fail
+    # Test that invalid misc_data types fail
     with pytest.raises(TypeError):
         convert_to_path(1)
 

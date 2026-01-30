@@ -280,7 +280,7 @@ def test_power():
     assert np.allclose(baseline_power, test_power)
 
 
-    # At rated, the power calculated should be 5MW since the test data is the NREL 5MW turbine
+    # At rated, the power calculated should be 5MW since the test misc_data is the NREL 5MW turbine
     wind_speed = 18.0
     rated_power = power(
         velocities=wind_speed * np.ones((1, 1, 3, 3)),

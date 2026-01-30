@@ -96,7 +96,7 @@ def memory_profile(input_dict):
             core.steady_state_atmospheric_condition()
 
     print(
-        "Size of one data array: "
+        "Size of one misc_data array: "
         f"{64 * N_FINDEX * N_TURBINES * 25 / (1000 * 1000)} MB"
     )
 

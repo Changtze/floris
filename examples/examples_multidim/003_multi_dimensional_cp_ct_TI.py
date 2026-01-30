@@ -2,7 +2,7 @@
 This example follows the previous example, but demonstrating how a multidimensional turbine can be
 used to model the effect of turbulence intensity on power and thrust coefficient.
 
-NOTE: The multi-dimensional power/thrust coefficient data used in this example is fictional for the
+NOTE: The multi-dimensional power/thrust coefficient misc_data used in this example is fictional for the
 purposes of facilitating this example and the power values shown should not be taken as
 representative of the actual effect of turbulence intensity on power/thrust coefficient.
 """
@@ -28,8 +28,8 @@ time_series = TimeSeries(
 fmodel.set(wind_data=time_series)
 
 # Loop over different turbulence intensities using set()
-# When running with TI=0.10, the multidimensional data handler will find the nearest defined
-# value of 0.08 and use that data.
+# When running with TI=0.10, the multidimensional misc_data handler will find the nearest defined
+# value of 0.08 and use that misc_data.
 fig, axarr = plt.subplots(1, 3, sharex=True, figsize=(12, 4))
 for ti, col in zip([0.06, 0.10], ["k", "r"]):
     fmodel.set(multidim_conditions={"TI": ti})

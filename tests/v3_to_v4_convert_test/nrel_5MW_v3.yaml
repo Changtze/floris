@@ -204,9 +204,9 @@ power_thrust_table:
 multi_dimensional_cp_ct: False
 
 ###
-# The path to the .csv file that contains the multi-dimensional Cp/Ct data. The format of this
+# The path to the .csv file that contains the multi-dimensional Cp/Ct misc_data. The format of this
 # file is such that any external conditions, such as wave height or wave period, that the
-# Cp/Ct data is dependent on come first, in column format. The last three columns of the .csv
-# file must be ``ws``, ``Cp``, and ``Ct``, in that order. An example of fictional data is given
+# Cp/Ct misc_data is dependent on come first, in column format. The last three columns of the .csv
+# file must be ``ws``, ``Cp``, and ``Ct``, in that order. An example of fictional misc_data is given
 # in ``floris/turbine_library/iea_15MW_multi_dim_Tp_Hs.csv``.
 power_thrust_data_file: '../floris/turbine_library/iea_15MW_multi_dim_Tp_Hs.csv'

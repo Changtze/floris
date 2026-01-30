@@ -182,7 +182,7 @@ df = df.set_index("status")
 # Assuming your dataframe df is already set up as in your example
 fig, ax = plt.subplots(figsize=(10, 5))
 
-# Get the data values as a numpy array
+# Get the misc_data values as a numpy array
 data = df.values
 
 # Create the heatmap

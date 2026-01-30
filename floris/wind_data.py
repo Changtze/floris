@@ -585,7 +585,7 @@ class WindRose(WindDataBase):
 
         # For padding wind directions, there are two cases to consider.  In the first,
         # say that the wind directions are 30, 40, 50.  In this case it's important append
-        # 30 and 50 to 35 and 55 to ensure the interpolation covers the full range of data
+        # 30 and 50 to 35 and 55 to ensure the interpolation covers the full range of misc_data
         # This is the case when wind directions doesn't cover the full range of possible
         # degrees (0-360)
         if np.abs((wd_range_min_current % 360.0) - (wd_range_max_current % 360.0)) > 1e-6:
@@ -1575,7 +1575,7 @@ class WindTIRose(WindDataBase):
 
         # For padding wind directions, there are two cases to consider.  In the first,
         # say that the wind directions are 30, 40, 50.  In this case it's important append
-        # 30 and 50 to 35 and 55 to ensure the interpolation covers the full range of data
+        # 30 and 50 to 35 and 55 to ensure the interpolation covers the full range of misc_data
         # This is the case when wind directions doesn't cover the full range of possible
         # degrees (0-360)
         if np.abs((wd_range_min_current % 360.0) - (wd_range_max_current % 360.0)) > 1e-6:
@@ -2238,7 +2238,7 @@ class TimeSeries(WindDataBase):
 
     def unpack(self):
         """
-        Unpack the time series data in a manner consistent with wind rose unpack
+        Unpack the time series misc_data in a manner consistent with wind rose unpack
         """
 
         # to match wind_rose, make a uniform frequency
@@ -2389,7 +2389,7 @@ class TimeSeries(WindDataBase):
 
     def to_WindRose(self, wd_step=2.0, ws_step=1.0, wd_edges=None, ws_edges=None, bin_weights=None):
         """
-        Converts the TimeSeries data to a WindRose.
+        Converts the TimeSeries misc_data to a WindRose.
 
         Args:
             wd_step (float, optional): Step size for wind direction (default is 2.0).
@@ -2401,13 +2401,13 @@ class TimeSeries(WindDataBase):
                 Defaults to None.
 
         Returns:
-            WindRose: A WindRose object based on the TimeSeries data.
+            WindRose: A WindRose object based on the TimeSeries misc_data.
 
         Notes:
             - If `wd_edges` is defined, it uses it to produce the bin centers.
-            - If `wd_edges` is not defined, it determines `wd_edges` from the step and data.
+            - If `wd_edges` is not defined, it determines `wd_edges` from the step and misc_data.
             - If `ws_edges` is defined, it uses it for wind speed edges.
-            - If `ws_edges` is not defined, it determines `ws_edges` from the step and data.
+            - If `ws_edges` is not defined, it determines `ws_edges` from the step and misc_data.
         """
 
         # If wd_edges is defined, then use it to produce the bin centers
@@ -2419,7 +2419,7 @@ class TimeSeries(WindDataBase):
                 self.wind_directions, wd_step
             )
 
-        # Else, determine wd_edges from the step and data
+        # Else, determine wd_edges from the step and misc_data
         else:
             wd_edges = np.arange(0.0 - wd_step / 2.0, 360.0, wd_step)
 
@@ -2536,7 +2536,7 @@ class TimeSeries(WindDataBase):
         bin_weights=None,
     ):
         """
-        Converts the TimeSeries data to a WindTIRose.
+        Converts the TimeSeries misc_data to a WindTIRose.
 
         Args:
             wd_step (float, optional): Step size for wind direction (default is 2.0).
@@ -2551,15 +2551,15 @@ class TimeSeries(WindDataBase):
                 Defaults to None.
 
         Returns:
-            WindRose: A WindTIRose object based on the TimeSeries data.
+            WindRose: A WindTIRose object based on the TimeSeries misc_data.
 
         Notes:
             - If `wd_edges` is defined, it uses it to produce the wind direction bin edges.
-            - If `wd_edges` is not defined, it determines `wd_edges` from the step and data.
+            - If `wd_edges` is not defined, it determines `wd_edges` from the step and misc_data.
             - If `ws_edges` is defined, it uses it for wind speed edges.
-            - If `ws_edges` is not defined, it determines `ws_edges` from the step and data.
+            - If `ws_edges` is not defined, it determines `ws_edges` from the step and misc_data.
             - If `ti_edges` is defined, it uses it for turbulence intensity edges.
-            - If `ti_edges` is not defined, it determines `ti_edges` from the step and data.
+            - If `ti_edges` is not defined, it determines `ti_edges` from the step and misc_data.
         """
 
         # If wd_edges is defined, then use it to produce the bin centers
@@ -2571,7 +2571,7 @@ class TimeSeries(WindDataBase):
                 self.wind_directions, wd_step
             )
 
-        # Else, determine wd_edges from the step and data
+        # Else, determine wd_edges from the step and misc_data
         else:
             wd_edges = np.arange(0.0 - wd_step / 2.0, 360.0, wd_step)
 
@@ -2753,14 +2753,14 @@ class WindRoseWRG(WindDataBase):
 
     def read_wrg_file(self, filename):
         """
-        Read the contents of a WRG file and store the data in the object.
+        Read the contents of a WRG file and store the misc_data in the object.
 
         Args:
             filename (str): The name of the WRG file to read.
 
         """
 
-        # Read the file into data
+        # Read the file into misc_data
         with open(filename, "r") as f:
             data = f.readlines()
 
@@ -2785,19 +2785,19 @@ class WindRoseWRG(WindDataBase):
         # The wind directions are implied by the number of sectors
         self._wind_directions_wrg_file = np.arange(0.0, 360.0, 360.0 / self.n_sectors)
 
-        # Initialize the data arrays which have the same number of
+        # Initialize the misc_data arrays which have the same number of
         # elements as the number of grid points
         x_gid = np.zeros(self.n_gid)
         y_gid = np.zeros(self.n_gid)
         z_gid = np.zeros(self.n_gid)
         h_gid = np.zeros(self.n_gid)
 
-        # Initialize the data arrays which are n_gid x n_sectors
+        # Initialize the misc_data arrays which are n_gid x n_sectors
         sector_freq_gid = np.zeros((self.n_gid, self.n_sectors))
         weibull_A_gid = np.zeros((self.n_gid, self.n_sectors))
         weibull_k_gid = np.zeros((self.n_gid, self.n_sectors))
 
-        # Loop through the data and extract the values
+        # Loop through the misc_data and extract the values
         for gid in range(self.n_gid):
             line = data[1 + gid]
             x_gid[gid] = float(line[10:20])
@@ -2827,7 +2827,7 @@ class WindRoseWRG(WindDataBase):
         self.z = z_gid[0]
         self.h = h_gid[0]
 
-        # Index the by sector data by x and y
+        # Index the by sector misc_data by x and y
         self.sector_freq = np.zeros((self.nx, self.ny, self.n_sectors))
         self.weibull_A = np.zeros((self.nx, self.ny, self.n_sectors))
         self.weibull_k = np.zeros((self.nx, self.ny, self.n_sectors))
@@ -2837,7 +2837,7 @@ class WindRoseWRG(WindDataBase):
                 # Find the indices when x_gid and y_gid are equal to x and y
                 idx = np.where((x_gid == x) & (y_gid == y))[0]
 
-                # Assign the data to the correct location
+                # Assign the misc_data to the correct location
                 self.sector_freq[x_idx, y_idx, :] = sector_freq_gid[idx, :]
                 self.weibull_A[x_idx, y_idx, :] = weibull_A_gid[idx, :]
                 self.weibull_k[x_idx, y_idx, :] = weibull_k_gid[idx, :]
@@ -2870,14 +2870,14 @@ class WindRoseWRG(WindDataBase):
 
     def _build_interpolant_function_list(self, x, y, n_sectors, data):
         """
-        Build a list of interpolant functions for the data.  It is assumed that the function
+        Build a list of interpolant functions for the misc_data.  It is assumed that the function
         should return a list of interpolant functions, length n_sectors.
 
         Args:
-            x (np.array): The x values of the data, length nx.
-            y (np.array): The y values of the data, length ny.
+            x (np.array): The x values of the misc_data, length nx.
+            y (np.array): The y values of the misc_data, length ny.
             n_sectors (int): The number of sectors.
-            data (np.array): The data to interpolate, shape (nx, ny, n_sectors).
+            data (np.array): The misc_data to interpolate, shape (nx, ny, n_sectors).
 
         Returns:
             list: A list of interpolant functions, length n_sectors.
@@ -2899,7 +2899,7 @@ class WindRoseWRG(WindDataBase):
 
     def _interpolate_data(self, x, y, interpolant_function_list):
         """
-        Interpolate the data at a given x, y location using the interpolant function list.
+        Interpolate the misc_data at a given x, y location using the interpolant function list.
 
         Args:
             x (float): The x location to interpolate.
@@ -2907,7 +2907,7 @@ class WindRoseWRG(WindDataBase):
             interpolant_function_list (list): A list of interpolant functions.
 
         Returns:
-            list: A list of interpolated data, length n_sectors.
+            list: A list of interpolated misc_data, length n_sectors.
         """
 
         # Check if x and y are within the bounds of the self.x_array and self.y_array, if
@@ -3028,7 +3028,7 @@ class WindRoseWRG(WindDataBase):
             # Calculate wd_step for these directions
             wd_step = wind_directions[1] - wind_directions[0]
 
-        # Get the interpolated data
+        # Get the interpolated misc_data
         sector_freq = self._interpolate_data(x, y, self.interpolant_sector_freq)
         weibull_A = self._interpolate_data(x, y, self.interpolant_weibull_A)
         weibull_k = self._interpolate_data(x, y, self.interpolant_weibull_k)
@@ -3166,7 +3166,7 @@ class WindRoseWRG(WindDataBase):
         and stacked along the 1th axis
 
         Returns:
-            Tuple: Tuple containing the unpacked wind rose data.
+            Tuple: Tuple containing the unpacked wind rose misc_data.
         """
 
         if self.layout_x is None:

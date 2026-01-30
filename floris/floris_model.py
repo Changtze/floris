@@ -121,7 +121,7 @@ class FlorisModel(LoggingManager):
                 )
                 raise ValueError("turbine_grid_points must be less than or equal to 3.")
 
-        # Initialize stored wind_data object to None
+        # Initialize stored wind_roses object to None
         self._wind_data = None
 
     ### Methods for setting and running the FlorisModel
@@ -172,7 +172,7 @@ class FlorisModel(LoggingManager):
             solver_settings (dict | None, optional): Solver settings. Defaults to None.
             heterogeneous_inflow_config (None, optional): heterogeneous inflow configuration.
                 Defaults to None.
-            wind_data (type[WindDataBase] | None, optional): Wind data. Defaults to None.
+            wind_data (type[WindDataBase] | None, optional): Wind misc_data. Defaults to None.
         """
         # Export the floris object recursively as a dictionary
         floris_dict = self.core.as_dict()
@@ -199,12 +199,12 @@ class FlorisModel(LoggingManager):
         if turbine_library_path is not None:
             farm_dict["turbine_library_path"] = turbine_library_path
 
-        ## If layout is changed and self._wind_data is not None, update the layout in wind_data
+        ## If layout is changed and self._wind_data is not None, update the layout in wind_roses
         if (layout_x is not None) or (layout_y is not None):
             if self._wind_data is not None:
                 self._wind_data.set_layout(farm_dict["layout_x"], farm_dict["layout_y"])
 
-        # Wind data
+        # Wind misc_data
         if (
             (wind_directions is not None)
             or (wind_speeds is not None)
@@ -213,19 +213,19 @@ class FlorisModel(LoggingManager):
         ):
             if wind_data is not None:
                 raise ValueError(
-                    "If wind_data is passed to reinitialize, then do not pass wind_directions, "
+                    "If wind_roses is passed to reinitialize, then do not pass wind_directions, "
                     "wind_speeds, turbulence_intensities or "
                     "heterogeneous_inflow_config as this is redundant"
                 )
             elif self.wind_data is not None:
-                self.logger.warning("Deleting stored wind_data information.")
+                self.logger.warning("Deleting stored wind_roses information.")
                 self._wind_data = None
         if wind_data is not None:
 
-            # Set the wind data to the current layout
+            # Set the wind misc_data to the current layout
             wind_data.set_layout(farm_dict["layout_x"], farm_dict["layout_y"])
 
-            # Unpack wind data for reinitialization and save wind_data for use in output
+            # Unpack wind misc_data for reinitialization and save wind_roses for use in output
             (
                 wind_directions,
                 wind_speeds,
@@ -430,7 +430,7 @@ class FlorisModel(LoggingManager):
             solver_settings (dict | None, optional): Solver settings. Defaults to None.
             heterogeneous_inflow_config (None, optional): heterogeneous inflow configuration.
                 Defaults to None.
-            wind_data (type[WindDataBase] | None, optional): Wind data. Defaults to None.
+            wind_data (type[WindDataBase] | None, optional): Wind misc_data. Defaults to None.
             yaw_angles (NDArrayFloat | list[float] | None, optional): Turbine yaw angles.
                 Defaults to None.
             power_setpoints (NDArrayFloat | list[float] | list[float, None] | None, optional):
@@ -1136,8 +1136,8 @@ class FlorisModel(LoggingManager):
         # Calculate wake
         fmodel_viz.core.solve_for_viz()
 
-        # Get the points of data in a dataframe
-        # TODO this just seems to be flattening and storing the data in a df; is this necessary?
+        # Get the points of misc_data in a dataframe
+        # TODO this just seems to be flattening and storing the misc_data in a df; is this necessary?
         # It seems the biggest dependency is on CutPlane and the subsequent visualization tools.
         df = fmodel_viz.get_plane_of_points(
             normal_vector="x",
@@ -1202,8 +1202,8 @@ class FlorisModel(LoggingManager):
         # Calculate wake
         fmodel_viz.core.solve_for_viz()
 
-        # Get the points of data in a dataframe
-        # TODO this just seems to be flattening and storing the data in a df; is this necessary?
+        # Get the points of misc_data in a dataframe
+        # TODO this just seems to be flattening and storing the misc_data in a df; is this necessary?
         # It seems the biggest depenedcy is on CutPlane and the subsequent visualization tools.
         df = fmodel_viz.get_plane_of_points(
             normal_vector="z",
@@ -1274,8 +1274,8 @@ class FlorisModel(LoggingManager):
         # Calculate wake
         fmodel_viz.core.solve_for_viz()
 
-        # Get the points of data in a dataframe
-        # TODO this just seems to be flattening and storing the data in a df; is this necessary?
+        # Get the points of misc_data in a dataframe
+        # TODO this just seems to be flattening and storing the misc_data in a df; is this necessary?
         # It seems the biggest depenedcy is on CutPlane and the subsequent visualization tools.
         df = fmodel_viz.get_plane_of_points(
             normal_vector="y",

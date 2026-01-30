@@ -41,11 +41,11 @@ class Farm(BaseClass):
     """Farm is where wind power plants should be instantiated from a YAML configuration
     file. The Farm will create a heterogeneous set of turbines that compose a wind farm,
     validate the inputs, and then create a vectorized representation of the the turbine
-    data.
+    misc_data.
 
     Farm is the container class of the FLORIS package. It brings
     together all of the component objects after input (i.e., Turbine,
-    Wake, FlowField) and packages everything into the appropriate data
+    Wake, FlowField) and packages everything into the appropriate misc_data
     type. Farm should also be used as an entry point to probe objects
     for generating output.
 
@@ -197,9 +197,9 @@ class Farm(BaseClass):
         # definition is saved above, we can make the whole list consistent now to use it
         # for mapping turbines later.
         # We use a private variable here instead of self.turbine_type because self.turbine_type
-        # should always retain the input data. When this class is exported as_dict, the input
+        # should always retain the input misc_data. When this class is exported as_dict, the input
         # types must be used. If we modify that directly and change its shape, recreating this
-        # class with a different layout but not a new self.turbine_type could cause the data
+        # class with a different layout but not a new self.turbine_type could cause the misc_data
         # to be out of sync.
         self._turbine_types = [
             copy.deepcopy(t["turbine_type"]) if isinstance(t, dict) else t

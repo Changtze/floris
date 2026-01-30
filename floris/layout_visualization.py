@@ -27,7 +27,7 @@ def plot_turbine_points(
     Plots turbine layout from a FlorisModel object.
 
     Args:
-        fmodel (FlorisModel): The FlorisModel object containing layout data.
+        fmodel (FlorisModel): The FlorisModel object containing layout misc_data.
         ax (plt.Axes, optional): An existing axes object to plot on. If None,
             a new figure and axes will be created. Defaults to None.
         turbine_indices (List[int], optional): A list of turbine indices to plot.
@@ -96,7 +96,7 @@ def plot_turbine_labels(
     Adds turbine labels to a turbine layout plot.
 
     Args:
-        fmodel (FlorisModel): The FlorisModel object containing layout data.
+        fmodel (FlorisModel): The FlorisModel object containing layout misc_data.
         ax (plt.Axes, optional): An existing axes object to plot on. If None,
             a new figure and axes will be created. Defaults to None.
         turbine_names (List[str], optional): Custom turbine labels. If None,
@@ -200,7 +200,7 @@ def plot_turbine_rotors(
     Plots wind turbine rotors on an existing axes, visually representing their yaw angles.
 
     Args:
-        fmodel (FlorisModel): The FlorisModel object containing layout and turbine data.
+        fmodel (FlorisModel): The FlorisModel object containing layout and turbine misc_data.
         ax (plt.Axes, optional): An existing axes object to plot on. If None,
             a new figure and axes will be created. Defaults to None.
         color (str, optional): Color of the turbine rotor lines. Defaults to 'k' (black).
@@ -328,7 +328,7 @@ def label_line(
             bbox={"ec": "1", "fc": "1", "alpha": 0.8},
         )
 
-    # extract line data
+    # extract line misc_data
     x = line.get_xdata()
     y = line.get_ydata()
 
@@ -375,7 +375,7 @@ def plot_waking_directions(
     Plots lines representing potential waking directions between wind turbines in a layout.
 
     Args:
-        fmodel (FlorisModel): Instantiated FlorisModel object containing layout data.
+        fmodel (FlorisModel): Instantiated FlorisModel object containing layout misc_data.
         ax (plt.Axes, optional): An existing axes object to plot on. If None, a new
             figure and axes will be created. Defaults to None.
         turbine_indices (List[int], optional):  Indices of turbines to include in the plot.
@@ -506,7 +506,7 @@ def plot_farm_terrain(fmodel: FlorisModel, ax: plt.Axes = None) -> None:
     Creates a filled contour plot visualizing terrain-corrected wind turbine hub heights.
 
     Args:
-        fmodel (FlorisModel): The FlorisModel object containing layout data.
+        fmodel (FlorisModel): The FlorisModel object containing layout misc_data.
         ax (plt.Axes, optional): An existing axes object to plot on. If None, a new
             figure and axes will be created. Defaults to None.
     """

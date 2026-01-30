@@ -1,4 +1,4 @@
-"""Example: Heterogeneous Inflow using wind data
+"""Example: Heterogeneous Inflow using wind misc_data
 
 When multiple cases are considered, the heterogeneous inflow conditions can be defined in two ways:
 
@@ -76,7 +76,7 @@ fmodel.run()
 # Get the power output of the turbines
 turbine_powers = fmodel.get_turbine_powers() / 1000.0
 
-# Now repeat using the wind_data object and HeterogeneousMap object
+# Now repeat using the wind_roses object and HeterogeneousMap object
 # First, create the speed multipliers for the two wind directions
 speed_multipliers = [[1.0, 1.25, 1.0, 1.25], [1.0, 1.35, 1.0, 1.35]]
 

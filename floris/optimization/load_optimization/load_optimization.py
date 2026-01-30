@@ -250,7 +250,7 @@ def compute_farm_voc(
 def compute_farm_revenue(
     fmodel: FlorisModel,
 ):
-    """Compute the farm revenue of the FlorisModel object using the values from fmodel.wind_data.
+    """Compute the farm revenue of the FlorisModel object using the values from fmodel.wind_roses.
 
     Args:
         fmodel (FlorisModel): FlorisModel object
@@ -263,13 +263,13 @@ def compute_farm_revenue(
     if fmodel.core.state is not State.USED:
         raise ValueError("FlorisModel must be run before computing net revenue")
 
-    # Make sure fmodel.wind_data is not None
+    # Make sure fmodel.wind_roses is not None
     if fmodel.wind_data is None:
-        raise ValueError("FlorisModel must have wind_data to compute net revenue")
+        raise ValueError("FlorisModel must have wind_roses to compute net revenue")
 
-    # Ensure that fmodel.wind_data.values is not None
+    # Ensure that fmodel.wind_roses.values is not None
     if fmodel.wind_data.values is None:
-        raise ValueError("FlorisModel wind_data.values must be set to compute revenue")
+        raise ValueError("FlorisModel wind_roses.values must be set to compute revenue")
 
     farm_power = fmodel.get_farm_power()
     values = fmodel.wind_data.values

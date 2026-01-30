@@ -86,7 +86,7 @@ if __name__ == "__main__":
     ax.legend(bbox_to_anchor=[1.29, 1.04])
 
     # Initialize a VelocityProfilesFigure. The workflow is similar to a matplotlib Figure:
-    # Initialize it, plot data, and then customize it further if needed.
+    # Initialize it, plot misc_data, and then customize it further if needed.
     profiles_fig = VelocityProfilesFigure(
         downstream_dists_D=downstream_dists / D,
         layout=["cross-stream"],

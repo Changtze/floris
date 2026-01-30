@@ -27,7 +27,7 @@ if __name__ == '__main__':
         [(1500.0, 0.0), (1500.0, 1000.0), (2500.0, 0.0), (1500.0, 0.0)],
     ]
 
-    # Set up the wind data information
+    # Set up the wind misc_data information
     wind_directions = np.arange(0, 360.0, 5.0)
     np.random.seed(1)
     wind_speeds = 8.0 + np.random.randn(1) * 0.0
@@ -41,7 +41,7 @@ if __name__ == '__main__':
         .reshape( ( len(wind_directions), len(wind_speeds) ) )
     )
     freq = freq / freq.sum()
-    # Set wind data in the FlorisModel
+    # Set wind misc_data in the FlorisModel
     fmodel.set(
         wind_data=WindRose(
             wind_directions=wind_directions,

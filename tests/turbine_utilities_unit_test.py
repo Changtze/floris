@@ -14,7 +14,7 @@ def test_build_turbine_dict():
 
     turbine_data_v3 = SampleInputs().v3type_turbine
 
-    # Mocked up turbine data
+    # Mocked up turbine misc_data
     turbine_data_dict = {
         "wind_speed":turbine_data_v3["power_thrust_table"]["wind_speed"],
         "power_coefficient":turbine_data_v3["power_thrust_table"]["power"],
