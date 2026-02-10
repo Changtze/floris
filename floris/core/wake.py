@@ -3,6 +3,7 @@ import attrs
 from attrs import define, field
 
 from floris.core import BaseClass, BaseModel
+
 from floris.core.wake_combination import (
     FLS,
     MAX,
