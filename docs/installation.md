@@ -63,37 +63,41 @@ With both methods, the installation can be verified by opening a Python interpre
 and importing FLORIS:
 
 ```python
->>> import floris
->>> help(floris)
+>> > import floris
+>> > help(floris)
 
-Help on package floris:
+Help
+on
+package
+floris:
 
 NAME
-    floris - # Copyright 2024 NREL
+floris -  # Copyright 2024 NREL
 
-PACKAGE CONTENTS
-    convert_floris_input_v3_to_v4
-    convert_turbine_v3_to_v4
-    core (package)
-    cut_plane
-    floris_model
-    flow_visualization
-    layout_visualization
-    logging_manager
-    optimization (package)
-    parallel_floris_model
-    turbine_library (package)
-    type_dec
-    uncertain_floris_model
-    utilities
-    version
-    wind_data
+PACKAGE
+CONTENTS
+convert_floris_input_v3_to_v4
+convert_turbine_v3_to_v4
+core(package)
+cut_plane
+floris_model
+flow_visualization
+layout_visualization
+logging_manager
+optimization(package)
+parallel_floris_model
+turbine_library(package)
+type_dec
+uncertain_floris_model
+utilities
+version
+wind_data
 
 VERSION
-    4.0
+4.0
 
 FILE
-    ~/floris/floris/__init__.py
+~ / floris / floris / __init__.py
 ```
 
 (developers)=

@@ -136,7 +136,7 @@ flow_field:
   # The wind speeds for the simulation, specified in m/s at the ``reference_wind_height``.
   # Type list of floats.
   wind_speeds:
-  - 8.0
+  - 9.6
 
   ###
   # The wind veer (in degrees) as a constant value for all points in the grid. Only used in

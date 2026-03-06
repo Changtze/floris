@@ -12,17 +12,28 @@ import floris.flow_visualization as flowviz
 import floris.layout_visualization as layoutviz
 from floris import FlorisModel, TimeSeries
 from floris.optimization.yaw_optimization.yaw_optimizer_sr import YawOptimizationSR
+import os
+import sys
+
+
+submodule_path = os.path.abspath("floris")
+if submodule_path not in sys.path:
+    sys.path.insert(0, submodule_path)
+
+import floris
+print(f"Using FLORIS from: {floris.__file__}")
 
 
 # Load the default example floris object
 fmodel = FlorisModel("../inputs/gch.yaml")
 
+ws = 9.6
 # Define an inflow that
 # keeps wind speed and TI constant while sweeping the wind directions
 wind_directions = np.arange(0.0, 360.0, 3.0)
 time_series = TimeSeries(
     wind_directions=wind_directions,
-    wind_speeds=8.0,
+    wind_speeds=ws,
     turbulence_intensities=0.06,
 )
 
@@ -69,7 +80,7 @@ ax.grid(True)
 fig, axarr = plt.subplots(2, 1, figsize=(10, 5), sharex=False)
 ax = axarr[0] # Baseline aligned operation
 fmodel.reset_operation()
-fmodel.set(wind_directions=[270.0], wind_speeds=[8.0], turbulence_intensities=[0.06])
+fmodel.set(wind_directions=[270.0], wind_speeds=[ws], turbulence_intensities=[0.06])
 fmodel.run()
 horizontal_plane = fmodel.calculate_horizontal_plane(height=90.0)
 flowviz.visualize_cut_plane(horizontal_plane, ax=ax)
@@ -78,15 +89,15 @@ ax.set_title("Turbines aligned")
 
 ax = axarr[1] # Optimized yaw angles
 optimal_yaw_angles = (
-    df_opt[(df_opt["wind_direction"] == 270.0) & (df_opt["wind_speed"] == 8.0)]
+    df_opt[(df_opt["wind_direction"] == 270.0) & (df_opt["wind_speed"] == ws)]
     .yaw_angles_opt.values[0]
 ).reshape(1,-1)
 
 print(np.shape(optimal_yaw_angles))
 fmodel.set(yaw_angles=optimal_yaw_angles)
 fmodel.run()
-horizontal_plane = fmodel.calculate_horizontal_plane(height=90.0)
-flowviz.visualize_cut_plane(horizontal_plane, ax=ax)
+horizontal_plane = fmodel.calculate_horizontal_plane(height=90.0, x_resolution=400, y_resolution=400)
+flowviz.visualize_cut_plane(horizontal_plane, ax=ax, levels=100)
 layoutviz.plot_turbine_rotors(fmodel, ax=ax, yaw_angles=optimal_yaw_angles)
 ax.set_title("Optimized yaw angles")
 

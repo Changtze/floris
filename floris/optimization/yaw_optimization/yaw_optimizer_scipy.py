@@ -39,10 +39,10 @@ class YawOptimizationScipy(YawOptimization):
         if opt_options is None:
             # Default SciPy parameters
             opt_options = {
-                "maxiter": 100,
+                "maxiter": 200,
                 "disp": True,
                 "iprint": 2,
-                "ftol": 1e-12,
+                "ftol": 1e-6,
                 "eps": 0.1,
             }
 

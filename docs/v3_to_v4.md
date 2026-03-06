@@ -18,6 +18,7 @@ called `fi`. The notion here is that the users "interface" with the underlying F
 intents and purposes, _is FLORIS_. We therefore have renamed the `FlorisInterface` the
 `FlorisModel`, nominally instantiated as `fmodel`. To instantiate a `FlorisModel`, the code is
 very similar to before, i.e.
+
 ```python
 from floris import FlorisModel
 
@@ -55,11 +56,12 @@ wind directions and wind speeds), we now provide `WindData` objects that can be 
 `fmodel` themselves before calling `get_farm_AEP()`.
 
 An example workflow for using `set` and `run` is:
+
 ```python
 import numpy as np
 from floris import FlorisModel
 
-fmodel = FlorisModel("input_file.yaml") # Input file with 3 turbines
+fmodel = FlorisModel("input_file.yaml")  # Input file with 3 turbines
 
 # Set up a base case and run
 fmodel.set(
@@ -72,7 +74,7 @@ turbine_powers_base = fmodel.get_turbine_powers()
 
 # Provide yaw angles
 fmodel.set(
-    yaw_angles=np.array([[10.0, 0.0, 0.0], [20.0, 0.0, 0.0]]) # n_findex x n_turbines
+    yaw_angles=np.array([[10.0, 0.0, 0.0], [20.0, 0.0, 0.0]])  # n_findex x n_turbines
 )
 fmodel.run()
 turbine_powers_yawed = fmodel.get_turbine_powers()
@@ -153,6 +155,7 @@ python convert_floris_turbine_v3_to_v4.py your_v3_turbine_file.yaml
 
 Additionally, a function for building a turbine dictionary that can be passed directly to the
 `turbine_type` argument of `FlorisModel.set()` is provided:
+
 ```python
 from floris.turbine_library.turbine_utilities import build_cosine_loss_turbine_dict
 ```
@@ -168,12 +171,13 @@ classes, which can be passed directly to `FlorisModel.set()`'s `wind_data` keywo
 of `wind_directions`, `wind_speeds`, and `turbulence_intensities`. The wind data objects enable,
 for example, gridding inputs (`WindRose` and `WindTIRose`) and broadcasting a scalar-valued
 turbulence intensity (`TimeSeries`).
+
 ```python
 import numpy as np
 from floris import FlorisModel
 from floris import TimeSeries
 
-fmodel = FlorisModel("input_file.yaml") # Input file with 3 turbines
+fmodel = FlorisModel("input_file.yaml")  # Input file with 3 turbines
 
 time_series = TimeSeries(
     wind_directions=np.array([270.0, 270.0]),
@@ -181,7 +185,8 @@ time_series = TimeSeries(
     turbulence_intensities=0.06
 )
 fmodel.set(wind_data=time_series)
-fmodel.set(wind_data=time_series)turbine_powers_base = fmodel.get_turbine_powers()
+fmodel.set(wind_data=time_series)
+turbine_powers_base = fmodel.get_turbine_powers()
 turbine_powers = fmodel.get_turbine_powers()
 ```
 

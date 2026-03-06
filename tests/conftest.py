@@ -141,7 +141,7 @@ ROTOR_DIAMETER = 126.0
 TURBINE_GRID_RESOLUTION = 2
 
 DEMO_CP_CT_5MW_FILE = (
-    Path(floris.__file__).resolve().parent /
+        Path(floris.__file__).resolve().parent /
     "turbine_library/demo_cp_ct_surfaces/nrel_5MW_demo_cp_ct_surface.npz"
 )
 
