@@ -75,6 +75,7 @@ def sequential_solver(
     ambient_turbulence_intensities = flow_field.turbulence_intensities.copy()
     ambient_turbulence_intensities = ambient_turbulence_intensities[:, None, None, None]
 
+
     # Calculate the velocity deficit sequentially from upstream to downstream turbines
     for i in range(grid.n_turbines):
 
@@ -85,6 +86,7 @@ def sequential_solver(
 
         u_i = flow_field.u_sorted[:, i:i+1]
         v_i = flow_field.v_sorted[:, i:i+1]
+        # print(f"u_i: {u_i}")
 
         ct_i = thrust_coefficient(
             velocities=flow_field.u_sorted,
@@ -105,6 +107,7 @@ def sequential_solver(
             cubature_weights=grid.cubature_weights,
             multidim_condition=flow_field.multidim_conditions
         )
+
         # Since we are filtering for the i'th turbine in the thrust coefficient function,
         # get the first index here (0:1)
         ct_i = ct_i[:, 0:1, None, None]
@@ -127,6 +130,8 @@ def sequential_solver(
             cubature_weights=grid.cubature_weights,
             multidim_condition=flow_field.multidim_conditions
         )
+
+
         # Since we are filtering for the i'th turbine in the axial induction function,
         # get the first index here (0:1)
         axial_induction_i = axial_induction_i[:, 0:1, None, None]
@@ -138,8 +143,10 @@ def sequential_solver(
 
         effective_yaw_i = np.zeros_like(yaw_angle_i)
         effective_yaw_i += yaw_angle_i
-
+        # print(f"Effective yaw before added yaw: {effective_yaw_i}")
         if model_manager.enable_secondary_steering:
+
+
             added_yaw = wake_added_yaw(
                 u_i,
                 v_i,
@@ -154,9 +161,13 @@ def sequential_solver(
                 flow_field.wind_shear,
             )
             effective_yaw_i += added_yaw
+            # print(f"Added yaw: {added_yaw}")
+
+        # print(f"Yaw_eff after secondary: {effective_yaw_i}")
 
         # Model calculations
         # NOTE: exponential
+        # print(f"Effective yaw: {effective_yaw_i}")
         deflection_field = model_manager.deflection_model.function(
             x_i,
             y_i,
@@ -166,6 +177,8 @@ def sequential_solver(
             rotor_diameter_i,
             **deflection_model_args,
         )
+
+        # print(f"Floris def field: {deflection_field}")
 
         if model_manager.enable_transverse_velocities:
             v_wake, w_wake = calculate_transverse_velocity(
@@ -210,6 +223,20 @@ def sequential_solver(
             rotor_diameter_i,
             **deficit_model_args,
         )
+        # print(f"Velocity deficit: {velocity_deficit}")
+        # print(f"x_i: {x_i}")
+        # print(f"y_i: {y_i}")
+        # print(f"z_i: {z_i}")
+        # print(f"axial_i: {axial_induction_i}")
+        # print(f"deflection_field: {deflection_field}")
+        # print(f"yaw_angle_i: {yaw_angle_i}")
+        # print(f"turbulence_intensity_i: {turbulence_intensity_i}")
+        # print(f"ct_i: {ct_i}")
+        # print(f"hub_height_i: {hub_height_i}")
+        # print(f"rotor_diameter_i: {rotor_diameter_i}")
+        # print(f"Model args: {deficit_model_args}")
+
+
 
         wake_field = model_manager.combination_model.function(
             wake_field,
@@ -250,12 +277,25 @@ def sequential_solver(
         flow_field.v_sorted += v_wake
         flow_field.w_sorted += w_wake
 
+        # print(
+        #     f"=== Turbine {i} Detailed Debug ===\n"
+        #     f"  1. Inflow u_i (mean)       : {np.mean(u_i):.10f}\n"
+        #     f"  2. Thrust ct_i (mean)      : {np.mean(ct_i):.10f}\n"
+        #     f"  3. Axial Induction (mean)  : {np.mean(axial_induction_i):.10f}\n"
+        #     f"  4. Deflection Field (max)  : {np.max(np.abs(deflection_field)):.10f}\n"
+        #     f"  5. Velocity Deficit (max)  : {np.max(velocity_deficit):.10f}\n"
+        #     f"  6. Acc. Wake Field (max)   : {np.max(wake_field):.10f}\n"
+        #     f"  7. Acc. TI Field (max)     : {np.max(turbine_turbulence_intensity[:, i:i+1]):.10f}\n"
+        #     f"================================"
+        # )
+
     flow_field.turbulence_intensity_field_sorted = turbine_turbulence_intensity
     flow_field.turbulence_intensity_field_sorted_avg = np.mean(
         turbine_turbulence_intensity,
         axis=(2,3),
         keepdims=True
     )
+
 
 
 def full_flow_sequential_solver(

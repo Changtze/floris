@@ -146,7 +146,6 @@ class GaussVelocityDeflection(BaseModel):
             / (2.0 * (1 - np.sqrt(1 - (ct_i * cosd(tilt) * cosd(yaw_i)))))
         )
         u0 = freestream_velocity * np.sqrt(1 - ct_i)
-
         # length of near wake
         x0 = (
             rotor_diameter_i
@@ -155,7 +154,11 @@ class GaussVelocityDeflection(BaseModel):
                 4 * self.alpha * turbulence_intensity_i + 2 * self.beta * (1 - np.sqrt(1 - ct_i))
             )) + x_i
         )
-
+        # print(f"wdadadad: {rotor_diameter_i}")
+        # print(f"cos_y: {cosd(yaw_i)}")
+        # print(f"num: {1 + np.sqrt(1 - ct_i * cosd(yaw_i))}")
+        # print(f"denom: {(np.sqrt(2) * (4 * self.alpha * turbulence_intensity_i + 2 * self.beta * (1 - np.sqrt(1 - ct_i))))}")
+        # print(f"x0: {x0}")
         # wake expansion parameters
         ky = self.ka * turbulence_intensity_i + self.kb
         kz = self.ka * turbulence_intensity_i + self.kb
@@ -289,13 +292,22 @@ def wake_added_yaw(
         scale,
     )
 
+
+
     turbine_average_velocity = np.cbrt(np.mean(u_i ** 3, axis=(2, 3), keepdims=True))
+    # print(f"mean vel cubed: {np.mean(u_i ** 3, axis=(2, 3), keepdims=True)}")
     Gamma_wake_rotation = 0.25 * 2 * pi * D * (aI - aI ** 2) * turbine_average_velocity / TSR
 
     ### compute the spanwise and vertical velocities induced by yaw
 
     # decay = eps ** 2 / (4 * nu * delta_x / Uinf + eps ** 2)   # This is the decay downstream
     yLocs = delta_y + NUM_EPS
+
+    # print(f"vel_top: {vel_top}, vel_bottom: {vel_bottom}")
+    # print(f"turb avg velocity: {turbine_average_velocity}")
+    # print(f"aI: {aI}")
+    # print(f"Uinf: {Uinf}")
+    # print(f"Ct: {Ct}")
 
     # top vortex
     # NOTE: this is the top of the grid, not the top of the rotor
@@ -324,11 +336,18 @@ def wake_added_yaw(
     v_core = np.mean( v_core, axis=(2,3) )
     # w_core = (-1 * Gamma_wake_rotation * yLocs) / (2 * pi * rC) * core_shape * decay
 
+    # print(f"Gamma_top: {Gamma_top}, Gamma_bottom: {Gamma_bottom}, Gamma_wake_rotation: {Gamma_wake_rotation}")
+    # print(f"v_top: {v_top}, v_bottom: {v_bottom}, v_core: {v_core}")
+
     # Cap the effective yaw values between -45 and 45 degrees
     val = 2 * (avg_v - v_core) / (v_top + v_bottom)
     val = np.where(val < -1.0, -1.0, val)
     val = np.where(val > 1.0, 1.0, val)
+
+
     y = np.degrees(0.5 * np.arcsin(val))
+
+    print(f"val: {val}, y: {y}")
 
     return y[:, :, None, None]
 
