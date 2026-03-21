@@ -165,6 +165,14 @@ def sequential_solver(
 
         # print(f"Yaw_eff after secondary: {effective_yaw_i}")
 
+        # print(
+        #     f"=== FLORIS Step {i} ===\n"
+        #     f"  1. Inflow u_i (mean)       : {u_i}\n"
+        #     f"  2. Thrust ct_i (mean)      : {np.mean(ct_i):.18f}\n"
+        #     f"  3. Axial Induction (mean)  : {np.mean(axial_induction_i):.18f}\n"
+        #     f"  4. Yaw eff (mean)          : {np.mean(effective_yaw_i):.18f}"
+        # )
+
         # Model calculations
         # NOTE: exponential
         # print(f"Effective yaw: {effective_yaw_i}")
@@ -179,6 +187,10 @@ def sequential_solver(
         )
 
         # print(f"Floris def field: {deflection_field}")
+        # print(f"gridx: {grid.x_sorted - x_i}")
+        # print(f"gridy: {grid.y_sorted - y_i}")
+        # print(f"z: {grid.z_sorted}")
+        # print(f"shear: {flow_field.wind_shear}")
 
         if model_manager.enable_transverse_velocities:
             v_wake, w_wake = calculate_transverse_velocity(
@@ -196,8 +208,18 @@ def sequential_solver(
                 axial_induction_i,
                 flow_field.wind_shear,
             )
+        # print(f"v_wake: {v_wake}")
+        # print(f"w_wake: {w_wake}")
+
+
 
         if model_manager.enable_yaw_added_recovery:
+            # print(f"u_i mean: {np.mean(u_i)}")
+            # print(f"ti_i mean: {np.mean(turbulence_intensity_i)}")
+            # print(f"v_i mean: {np.mean(v_i)}")
+            # # print(f"w_i mean: {np.mean(flow_field.w_initial_sorted[:, i:i+1])}")
+            # print(f"v_wake_i mean: {np.mean(v_wake[:, i:i+1])}")
+            # print(f"w_wake_i mean: {np.mean(w_wake[:, i:i+1])}")
             I_mixing = yaw_added_turbulence_mixing(
                 u_i,
                 turbulence_intensity_i,
@@ -207,7 +229,9 @@ def sequential_solver(
                 w_wake[:, i:i+1],
             )
             gch_gain = 2
+
             turbine_turbulence_intensity[:, i:i+1] = turbulence_intensity_i + gch_gain * I_mixing
+
 
         # NOTE: exponential
         velocity_deficit = model_manager.velocity_model.function(
@@ -223,6 +247,7 @@ def sequential_solver(
             rotor_diameter_i,
             **deficit_model_args,
         )
+        # print(f"vel def: {velocity_deficit}")
         # print(f"Velocity deficit: {velocity_deficit}")
         # print(f"x_i: {x_i}")
         # print(f"y_i: {y_i}")
@@ -278,15 +303,10 @@ def sequential_solver(
         flow_field.w_sorted += w_wake
 
         # print(
-        #     f"=== Turbine {i} Detailed Debug ===\n"
-        #     f"  1. Inflow u_i (mean)       : {np.mean(u_i):.10f}\n"
-        #     f"  2. Thrust ct_i (mean)      : {np.mean(ct_i):.10f}\n"
-        #     f"  3. Axial Induction (mean)  : {np.mean(axial_induction_i):.10f}\n"
-        #     f"  4. Deflection Field (max)  : {np.max(np.abs(deflection_field)):.10f}\n"
-        #     f"  5. Velocity Deficit (max)  : {np.max(velocity_deficit):.10f}\n"
-        #     f"  6. Acc. Wake Field (max)   : {np.max(wake_field):.10f}\n"
-        #     f"  7. Acc. TI Field (max)     : {np.max(turbine_turbulence_intensity[:, i:i+1]):.10f}\n"
-        #     f"================================"
+        #     f"  5. Deflection Field (max)  : {np.max(np.abs(deflection_field)):.15f}\n"
+        #     f"  6. Velocity Deficit (max)  : {np.max(velocity_deficit):.15f}\n"
+        #     f"  7. Acc. Wake Field (max)   : {np.max(wake_field):.15f}\n"
+        #     f"  8. Acc. TI Field (max)     : {np.max(turbine_turbulence_intensity[:, i:i+1]):.15f}\n"
         # )
 
     flow_field.turbulence_intensity_field_sorted = turbine_turbulence_intensity

@@ -79,7 +79,10 @@ class GaussVelocityDeficit(BaseModel):
         # Initial lateral bounds
         sigma_z0 = rotor_diameter_i * 0.5 * np.sqrt(uR / (u_initial + u0))
         sigma_y0 = sigma_z0 * cosd(yaw_angle) * cosd(wind_veer)
-
+        # print(f"uR: {np.mean(uR)}")
+        # print(f"u0: {np.mean(u0)}")
+        # print(f"sigma_z0: {np.mean(sigma_z0)}")
+        # print(f"sigma_y0: {np.mean(sigma_y0)}")
         # Compute the bounds of the near and far wake regions and a mask
 
         # Start of the near wake
@@ -88,11 +91,20 @@ class GaussVelocityDeficit(BaseModel):
         # Start of the far wake
         x0 = np.ones_like(u_initial)
         x0 *= rotor_diameter_i * cosd(yaw_angle) * (1 + np.sqrt(1 - ct_i) )
+        # print(f"1. x0: {np.mean(x0)}")
         x0 /= np.sqrt(2) * (
             4 * self.alpha * turbulence_intensity_i + 2 * self.beta * (1 - np.sqrt(1 - ct_i) )
         )
+        # print(f"sqrt(2): {np.sqrt(2)}")
+        # print(f"alpha: {self.alpha}")
+        # print(f"ti: {np.mean(turbulence_intensity_i):.25f}")
+        # print(f"beta: {self.beta}")
+        # print(f"ct_i: {np.sqrt(1-ct_i)}")
+        # print(f"2. x0: {x0}")
+
         x0 += x_i
 
+        # print(f"3. x0: {np.mean(x0)}")
         # Initialize the velocity deficit array
         velocity_deficit = np.zeros_like(u_initial)
 

@@ -347,7 +347,7 @@ def wake_added_yaw(
 
     y = np.degrees(0.5 * np.arcsin(val))
 
-    print(f"val: {val}, y: {y}")
+    # print(f"val: {val}, y: {y}")
 
     return y[:, :, None, None]
 
